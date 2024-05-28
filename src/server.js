@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname + "/public"));
 
-app.use("/api/v1", router);
+app.use("/api", router);
 
 const port = process.env.PORT || 3000;
 

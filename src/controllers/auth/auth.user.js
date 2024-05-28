@@ -6,7 +6,7 @@ exports.userLogin  =  async (req, res) =>{
 
     try{
         let isUserExist = await ludoUser.findOne({
-            phone_no: req.body.phone_no
+            email: req.body.email
         })
         if (isUserExist) {
             return errorResponse(res, 404, false, "You are already registered. Please login.");
@@ -14,8 +14,9 @@ exports.userLogin  =  async (req, res) =>{
         else{
             let newUserCreated = await ludoUser.create({
                 name: "random",
-                phone_no: req.body.phone_no,
-                otp:"741852"
+                email: req.body.email,
+                otp: req.body.otp,
+                token:"adminPercentage50To400"
             })
             if(!newUserCreated){
                 return errorResponse(res, 404, false, "Something went wrong!!!")

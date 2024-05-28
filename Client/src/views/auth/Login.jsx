@@ -2,14 +2,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { loginRoute } from '../../utils/APIRoutes';
 
 const validate = values => {
   const errors = {};
 
-  if (!values.phone_no) {
-    errors.phone_no = 'Required';
-  } else if (values.phone_no.length < 10) {
-    errors.phone_no = 'Phone no must be 10 digit';
+ 
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
   }
   if (!values.otp) {
     errors.otp = 'Required';
@@ -23,20 +25,46 @@ function Login() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      phone_no: '',
+      email: '',
       otp:'',
     },
     validate,
-    onSubmit: values => {
-      localStorage.setItem('token', true);
-      let data = {
-        phone_no: values.phone_no,
-        otp: values.otp,
-      }
-      toast.success("Login successfully")
-      localStorage.setItem("user", JSON.stringify(data))
-      navigate("/");
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        alert(values.email)
+        // Send a request to the server to authenticate the user
+        const response = await axios.post(loginRoute, {
+          email: values.email,
+          otp: values.otp,
+        });
 
+        if(response.status){
+           // Assuming the server responds with a token upon successful login
+        const token = response.data.token;
+
+        // Store the token in localStorage
+        localStorage.setItem('token', token);
+
+        // Store user data in localStorage
+        localStorage.setItem('user', JSON.stringify(values));
+
+        // Display success message
+        toast.success(response.data.message);
+
+        // Redirect the user to the homepage
+        navigate('/');
+        }else{
+           // Display success message
+        toast.error(response.data.message);
+        }
+      } catch (error) {
+        // Handle any errors
+        console.error('Login failed:', error);
+        toast.error('Login failed. Please try again.');
+      } finally {
+        // Reset the form's submitting state
+        setSubmitting(false);
+      }
     },
   });
 
@@ -53,10 +81,10 @@ function Login() {
                 <form onSubmit={formik.handleSubmit}>
                       {/*  */}
 
-                        <input id="phone_no" name='phone_no' onChange={formik.handleChange}
-                        className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border ${formik.errors.phone_no ? "border-red-500" : "border-gray-300"} placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5`}
-                        type="number"
-                        placeholder="Enter you phone no"
+                        <input id="email" name='email' onChange={formik.handleChange}
+                        className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border ${formik.errors.email ? "border-red-500" : "border-gray-300"} placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5`}
+                        type="email"
+                        placeholder="Enter your email id"
                         />
                         {/* {formik.errors.userPassword && <div className="text-red-500 ">{formik.errors.userPassword}</div>} */}
 
@@ -74,7 +102,7 @@ function Login() {
                      
                    
                 
-                    <button className="mt-5 tracking-wide font-semibold bg-indigo-800 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                    <button  type='submit' className="mt-5 tracking-wide font-semibold bg-indigo-800 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

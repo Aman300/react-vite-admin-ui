@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
 
-    phone_no:{
+    email:{
         type: Number,
         required: true,
         trim: true
