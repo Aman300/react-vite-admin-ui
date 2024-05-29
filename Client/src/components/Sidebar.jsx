@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -188,8 +189,8 @@ const Sidebar = () => {
 
         {/* Navigation links for larger screens */}
         <div className="lg:block hidden md:flex md:flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-          <div className="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
-            <div className="flex items-center justify-center h-14 border-b">
+          <div className="fixed flex flex-col top-0 left-0 w-64 bg-white h-full shadow-2xl rounded-3xl">
+            <div className="flex items-center justify-center h-14 shadow-sm">
             <div className=" font-bold text-xl ">
                   <Link to="/user-dashboard">
                   <h2><span className='text-rose-600'>Ludo</span>Battle</h2>
@@ -221,7 +222,7 @@ const Sidebar = () => {
                               />
                             </svg>
                           </span>
-                          <span className="ml-2 text-sm tracking-wide truncate">
+                          <span className="ml-2 text-md font-semibold tracking-wide truncate">
                             {link.name}
                           </span>
                         </Link>
@@ -260,6 +261,86 @@ const Sidebar = () => {
 
           </div>
            {/* Main content */}
+
+            <div className='flex justify-between items-center mt-3'>
+                <div onClick={() => setShowModal(true)} className=' cursor-pointer py-3 px-5 ml-[320px] bg-rose-50 rounded-2xl text-rose-500 font-semibold flex gap-1'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                    <p className='uppercase font-bold'>Create battle</p>
+                </div>
+
+                {showModal ? (
+                <>
+                  <div className="xl:ml-[300px] flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="relative w-1/2 h-[400px]">
+                      <div className="border-0 rounded-xl shadow-xl relative flex flex-col w-full bg-white outline-none focus:outline-none p-6">
+                      <div className='flex justify-between ' onClick={() => setShowModal(false)}>
+                         <p className=' text-bold font-semibold'>Amount can only accept 50 to 25000</p>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 cursor-pointer hover:text-rose-600">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                          </svg>
+                        </div>
+                      <form >
+                        <input id="amount" name='amount' 
+                        className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border  "border-gray-300" placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5`}
+                        type="number"
+                        placeholder="Enter battle amount"
+                        />
+                        <button  type='submit' className="mt-5 tracking-wide font-semibold bg-rose-600 text-gray-100 w-full py-3 rounded-lg hover:bg-rose-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                            />
+                        </svg>
+                        <span className="ml-3">Create</span>
+                        </button>
+                       </form>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+
+
+              <div className='flex justify-end items-center gap-3 mr-8'>
+                  <div className='py-3 px-5 bg-rose-50 rounded-2xl text-rose-500 font-semibold flex gap-1'>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                      <p>500</p>
+                  </div>
+                  <div className='py-3 px-5 bg-green-50 rounded-2xl text-green-500 font-semibold flex gap-1'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+                  </svg>
+
+                      <p>500</p>
+                  </div>
+                  <div className='py-3 px-5 bg-indigo-50 rounded-2xl text-indigo-500 font-semibold flex gap-1'>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                      </svg>
+                      <p>500</p>
+                  </div>
+                  
+                  <div className=''>
+                      <img className='size-12' src="https://avatar.iran.liara.run/public/12" alt="" />
+                      
+                    </div>
+                  
+              </div>
+           </div>
         </div>
 
 
