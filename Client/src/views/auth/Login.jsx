@@ -31,36 +31,30 @@ function Login() {
     validate,
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        alert(values.email)
         // Send a request to the server to authenticate the user
         const response = await axios.post(loginRoute, {
           email: values.email,
           otp: values.otp,
         });
 
-        if(response.status){
-           // Assuming the server responds with a token upon successful login
-        const token = response.data.token;
+        console.log(response.data)
+        const token = response.data.data.token ? true : false;
 
         // Store the token in localStorage
         localStorage.setItem('token', token);
 
         // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(values));
+        localStorage.setItem('user', JSON.stringify(response.data.data));
 
         // Display success message
         toast.success(response.data.message);
 
-        // Redirect the user to the homepage
-        navigate('/');
-        }else{
-           // Display success message
-        toast.error(response.data.message);
-        }
+        navigate("/")
+
       } catch (error) {
         // Handle any errors
         console.error('Login failed:', error);
-        toast.error('Login failed. Please try again.');
+        toast.error(error.response.data.message);
       } finally {
         // Reset the form's submitting state
         setSubmitting(false);

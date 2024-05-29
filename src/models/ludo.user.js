@@ -5,12 +5,12 @@ const schema = new mongoose.Schema(
   {
 
     email:{
-        type: Number,
+        type: String,
         required: true,
         trim: true
     },
     otp:{
-        type: String,
+        type: Number,
         required: true,
         trim: true,
     },
@@ -52,6 +52,10 @@ const schema = new mongoose.Schema(
       enum: ["user"],
       default: "user",
     },
+    token: {
+        type: String,
+        default: ""
+    }
   },
   {
     timestamps: true,

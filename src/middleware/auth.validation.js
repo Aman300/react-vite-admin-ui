@@ -2,13 +2,12 @@ const Joi = require("joi");
 
 exports.loginValidation = (req, res, next) => {
   const schema = Joi.object({
-    phone_no: Joi.string().email().required().messages({
+    email: Joi.string().email().required().messages({
       "any.required": "Email is required",
       "string.email": "Invalid email format",
     }),
-    otp: Joi.string().min(6).required().messages({
+    otp: Joi.number().min(6).required().messages({
       "any.required": "OTP is required",
-      "string.min": "OTP must be at least 6 characters",
     }),
   });
 
