@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 // Define User Schema
 const schema = new mongoose.Schema(
   {
-
     email:{
         type: String,
         required: true,
@@ -18,7 +17,7 @@ const schema = new mongoose.Schema(
         type: Boolean,
         default: false,
     },
-    photo:{
+    profile:{
         type: String,
         default: null,
         trim: true,
@@ -62,6 +61,37 @@ const schema = new mongoose.Schema(
   }
 );
 
+// Pre-save hook to generate random name or profile if not provided
+schema.pre('save', function(next) {
+  if (!this.name) {
+    this.name = generateRandomName();
+  }
+  if (!this.profile) {
+    this.profile = generateRandomProfile();
+  }
+  next();
+});
+
+// Generate random name
+function generateRandomName() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let randomName = '';
+    const nameLength = Math.floor(Math.random() * 10) + 5; // Random length between 5 and 14 characters
+  
+    for (let i = 0; i < nameLength; i++) {
+      randomName += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+  
+    return randomName;
+  }
+  
+
+// Generate random profile with a random number between 1 to 99 at the end
+function generateRandomProfile() {
+    const randomNumber = Math.floor(Math.random() * 99) + 1;
+    return `https://avatar.iran.liara.run/public/${randomNumber}`;
+  }
+  
 // Create User model
 const ludoUser = mongoose.model("ludo.user", schema);
 

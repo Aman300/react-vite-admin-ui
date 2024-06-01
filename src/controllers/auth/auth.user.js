@@ -1,4 +1,5 @@
 const { errorResponse } = require("../../helper/error.response")
+const ludoGame = require("../../models/ludo.game")
 const ludoUser = require("../../models/ludo.user")
 const { sendEmail } = require("../../utils/OtpEmail")
 
@@ -21,7 +22,8 @@ exports.userLogin  =  async (req, res) =>{
             let otp = 123456
 
             let newUserCreated = await ludoUser.create({
-                name: "random",
+                // name: "AfHkldKH",
+                // profile:"https://avatar.iran.liara.run/public/19",
                 email: req.body.email,
                 otp: otp,
                 token:"UKJHLhlkdsklfuiHLHIOyioholskhdfkl8979023lkndfoa7us%*%&*6oslk3uj42j34jklh"
@@ -33,6 +35,23 @@ exports.userLogin  =  async (req, res) =>{
                 return errorResponse(res, 201, true, "Please verify OTP to continew!!", newUserCreated)
             }
         }
+
+    }catch(e){
+        return errorResponse(res, 500, false, e.message)
+    }
+
+}
+exports.clearDatabase  =  async (req, res) =>{
+
+    try{
+        let isUserDbClear = await ludoUser.deleteMany({})
+        let isLudoGameDbClear = await ludoGame.deleteMany({})
+        if (isUserDbClear && isLudoGameDbClear) {        
+            return errorResponse(res, 200, true, "Database Clear successfully!");
+        }else{
+            return errorResponse(res, 201, true, "Database clear successfully ✔✌🎉")
+        }
+        
 
     }catch(e){
         return errorResponse(res, 500, false, e.message)

@@ -94,25 +94,20 @@ function Login() {
                         {/* {formik.errors.otp && <div className="text-red-500 ">{formik.errors.otp}</div>} */}
 
                      
-                   
-                
-                    <button  type='submit' className="mt-5 tracking-wide font-semibold bg-indigo-800 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                        />
-                    </svg>
-                    <span className="ml-3">Login</span>
-                    </button>
+                    {/* Submit button */}
+                  <button
+                      type='submit'
+                      className="mt-5 tracking-wide font-semibold bg-indigo-800 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      disabled={formik.isSubmitting} // Disable the button while submitting
+                  >
+                      {formik.isSubmitting ? (
+                          // Show loading spinner if submitting
+                          <span>Loading...</span>
+                      ) : (
+                          // Show "Login" text if not submitting
+                          <span>Login</span>
+                      )}
+                  </button>
                 </form>
                 </div>
                 

@@ -9,7 +9,6 @@ const transporter = nodemailer.createTransport({
 
   auth: {
     user: "thinkinternet2020@gmail.com",
-
     pass: "frtlgbyfkoimmmup",
   },
 })
