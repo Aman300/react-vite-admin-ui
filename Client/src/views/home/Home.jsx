@@ -7,7 +7,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { createGameRoute, deleteGameRoute } from '../../utils/APIRoutes';
-import { useNavigate } from 'react-router-dom';
+import socket from "../../utils/Socket";
 
 
 const validate = values => {
@@ -38,10 +38,6 @@ async function fetchOpenGame(){
     console.log(e)
   }
 }
- 
-  useEffect(()=>{
-    fetchOpenGame();
-  },[])
 
   
   const formik = useFormik({
@@ -58,7 +54,9 @@ async function fetchOpenGame(){
 
         toast.success(response.data.message);
         setShowModal(false)
-        fetchOpenGame();
+        socket.emit("send-message", {
+          room: 101
+        });
 
       } catch (error) {
         // Handle any errors
@@ -80,7 +78,9 @@ async function fetchOpenGame(){
 
       if(response.data.status){
         toast.success(response.data.message);
-        fetchOpenGame();
+        socket.emit("send-message", {
+          room: 101
+        });
       }
 
     }catch(e){
@@ -89,6 +89,33 @@ async function fetchOpenGame(){
     }
   }
 
+
+
+  useEffect(() => {
+    // Emit join-room event when the socket connection is established
+    socket.emit("join-room", 101);
+    socket.emit("send-message", 
+      fetchOpenGame()
+    );
+
+    socket.on("receive-message", (data) => {
+      console.log(data)
+      setData(data)
+      //setChatMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    socket.on("disconnect", () => {
+      socket.emit("send-message", 
+      fetchOpenGame()
+    );
+    });
+
+    return () => {
+      // Unsubscribe from socket events here if needed
+      // Note: It's generally not necessary to manually disconnect the socket here,
+      // as it will be disconnected automatically when the component unmounts.
+    };
+  }, []);
 
 
   return (

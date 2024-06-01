@@ -72,18 +72,18 @@ schema.pre('save', function(next) {
   next();
 });
 
-// Generate random name
+// Generate random name with exactly 6 characters
 function generateRandomName() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let randomName = '';
-    const nameLength = Math.floor(Math.random() * 10) + 5; // Random length between 5 and 14 characters
   
-    for (let i = 0; i < nameLength; i++) {
+    for (let i = 0; i < 6; i++) {
       randomName += characters.charAt(Math.floor(Math.random() * characters.length));
     }
   
     return randomName;
   }
+  
   
 
 // Generate random profile with a random number between 1 to 99 at the end
