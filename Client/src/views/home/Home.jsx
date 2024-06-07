@@ -174,12 +174,43 @@ async function fetchOpenGame(){
     }]);
 
 
+    const [options2, setOptions2] = useState({
+      chart: {
+        height: 350,
+        type: 'area'
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+      xaxis: {
+        type: 'datetime',
+        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+      },
+      tooltip: {
+        x: {
+          format: 'dd/MM/yy HH:mm'
+        },
+      },
+    })
+
+    const [series2, setSeries2] = useState([{
+      name: 'series1',
+      data: [31, 40, 28, 51, 42, 109, 100]
+    }, {
+      name: 'series2',
+      data: [11, 32, 45, 32, 34, 52, 41]
+    }],);
+
+
   return (
     <>
     <div className='xl:grid xl:grid-cols-2 p-5 gap-4'>
-      <div className=''>
-        <div className='flex justify-between gap-3 mb-4'>
-          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer'>
+      <div className='xl:mb-0 mb-5'>
+        <div className='xl:flex xl:justify-between xl:gap-3 mb-4'>
+          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer xl:mb-0 mb-3'>
               <div className='flex justify-between items-center'>
                 <div className='bg-[#ebeffd] w-14 h-14 flex justify-center items-center rounded-xl mr-3'>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
@@ -193,12 +224,12 @@ async function fetchOpenGame(){
                 </div>
               </div>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
                     <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                   </svg>
               </div>          
           </div>
-          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer'>
+          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointerxl:mb-0 mb-3'>
               <div className='flex justify-between items-center'>
                 <div className='bg-[#ebeffd] w-14 h-14 flex justify-center items-center rounded-xl mr-3'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
@@ -211,15 +242,14 @@ async function fetchOpenGame(){
                 </div>
               </div>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
                     <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                   </svg>
               </div>          
-          </div>
-          
+          </div>          
         </div>
-        <div className='flex justify-between gap-3'>
-          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer'>
+        <div className='xl:flex xl:justify-between xl:gap-3 mb-4'>
+          <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer xl:mb-0 mb-3'>
               <div className='flex justify-between items-center'>
                 <div className='bg-[#ebeffd] w-14 h-14 flex justify-center items-center rounded-xl mr-3'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
@@ -232,7 +262,7 @@ async function fetchOpenGame(){
                 </div>
               </div>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
                     <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                   </svg>
               </div>          
@@ -250,15 +280,21 @@ async function fetchOpenGame(){
                 </div>
               </div>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 text-blue-600">
                     <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                   </svg>
               </div>          
           </div>
         </div>
+
+        <div className='bg-white shadow-2xl w-full rounded-xl p-2'>
+          <ReactApexChart options={options2} series={series2} type="area" height={350} />
+        </div>
       </div>
       <div className='bg-white hover:shadow-2xl rounded-xl cursor-pointer p-2'>
-        <ReactApexChart options={options} series={series} type="bar" height={350} />
+        <div>
+          <ReactApexChart options={options} series={series} type="bar" height={350} />
+        </div>
       </div>
     </div>
     </>
