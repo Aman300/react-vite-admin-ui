@@ -145,11 +145,11 @@ async function fetchOpenGame(){
       xaxis: {
         categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
       },
-      yaxis: {
-        title: {
-          text: '$ (thousands)'
-        }
-      },
+      // yaxis: {
+      //   title: {
+      //     text: '$ (thousands)'
+      //   }
+      // },
       fill: {
         opacity: 1
       },
@@ -209,7 +209,7 @@ async function fetchOpenGame(){
     <>
     <div className='xl:grid xl:grid-cols-2 p-5 gap-4'>
       <div className='xl:mb-0 mb-5'>
-        <div className='xl:flex xl:justify-between xl:gap-3 mb-4'>
+        <div className='xl:flex xl:justify-between xl:gap-3 mb-1'>
           <div className='bg-white flex justify-around items-center w-full hover:shadow-2xl h-20 rounded-xl  cursor-pointer xl:mb-0 mb-3'>
               <div className='flex justify-between items-center'>
                 <div className='bg-[#ebeffd] w-14 h-14 flex justify-center items-center rounded-xl mr-3'>
@@ -291,8 +291,9 @@ async function fetchOpenGame(){
           <ReactApexChart options={options2} series={series2} type="area" height={350} />
         </div>
       </div>
-      <div className='bg-white hover:shadow-2xl rounded-xl cursor-pointer p-2'>
-        <div>
+
+      <div className='xl:mb-0 mb-5'>
+        <div className='bg-white hover:shadow-2xl rounded-xl cursor-pointer p-2'>
           <ReactApexChart options={options} series={series} type="bar" height={350} />
         </div>
       </div>

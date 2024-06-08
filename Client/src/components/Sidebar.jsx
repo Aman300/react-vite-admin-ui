@@ -208,12 +208,12 @@ const Sidebar = () => {
             </div>
             </div>
             <div className="overflow-y-auto overflow-x-hidden flex-grow">
-              <ul className="flex flex-col py-4 space-y-1 ml-4 ">
+              <ul className="flex flex-col py-4 space-y-1 ml-4 mr-5">
                     {path.map((link, index) => (
                       <li key={index}>
                         <Link
                           to={link.path}
-                          className={`relative flex flex-row items-center h-11 focus:outline-none text-gray-600 hover:text-blue-700 border-transparent pr-6 ${activeTab === index ? 'text-blue-700' : ''}`}
+                          className={`relative flex flex-row items-center h-11 focus:outline-none rounded-xl hover:text-blue-700 hover:bg-[#f5f7f9] border-transparent pr-6 ${activeTab === index ? 'bg-[#f5f7f9] text-blue-700' : 'text-gray-600'}`}
                           onClick={() => handleTabClick(index)}
                         >
                           <span className="inline-flex justify-center items-center ml-4">
